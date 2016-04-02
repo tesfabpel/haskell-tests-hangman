@@ -73,11 +73,17 @@ checkGameStatus' game
 runGame :: Game -> IO ()
 runGame game = forever $ do
 	checkGameStatus game
+	putStrLn $ "Current puzzle is: " ++ show game
+	guess <- getLine
+	case guess of
+		[c] -> return () --handleGuess puzzle c >>= runGame
+		_ -> putStrLn "Your guess must\
+		\ be a single character"
+
 
 main :: IO ()
 main = do
 	putStrLn "Hello, World!"
 	game <- newGame
 	putStrLn "Let's start!"
-	print game
 	runGame game
